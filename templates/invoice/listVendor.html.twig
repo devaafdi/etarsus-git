@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>src/Controller/UserController.php</code></li>
+        <li>Your template at <code>templates/user/index.html.twig</code></li>
+    </ul>
+    <div>This page for Edit USer</div>
+    <ul id="list_user">
+        <li class="user_item list_label clearfix">
+            <div class="col-xs-3">Company Name</div>
+            <div class="col-xs-2">Country</div>
+            <div class="col-xs-2">Phone</div>
+            <div class="col-xs-3">Website</div>
+            <div class="col-xs-2">Action</div>
+        </li>
+        {% if dataVendor is defined %}
+        {% for vendor in dataVendor %}
+            <li class="user_item clearfix">
+                <div class="col-xs-3"><a href="{{ url('invoice') }}/update/vendor/{{ vendor.id }}"> {{ vendor.companyName }}</a></div>
+                <div class="col-xs-2">{{ vendor.country }}</div>
+                <div class="col-xs-2">{{ vendor.phone }}</div>
+                <div class="col-xs-3">{{ vendor.website }}</div>
+                <div class="col-xs-2"><a href="{{ url('invoice') }}/delete/vendor/{{ vendor.id }}">delete</a></div>
+            </li>
+        {% endfor %}
+        {% endif %}
+        <li class="user_item">
+            <div class="col-xs-12"><a href="{{ url('createVendor') }}">Create New Vendor</a></div>
+        </li>
+    </ul>
+
+
+
+</div>
+{% endblock %}

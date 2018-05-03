@@ -1,0 +1,55 @@
+security:
+
+    # http://symfony.com/doc/current/security/entity_provider.html#security-crete-user-entity
+    encoders:
+            App\Entity\TarsusUser:
+                algorithm: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        in_memory: { memory: ~ }
+
+        # http://symfony.com/doc/current/security/entity_provider.html#security-crete-user-entity
+        our_db_provider:
+            entity:
+                class: App\Entity\TarsusUser
+                property: username
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+#        default:
+#            pattern: ^/
+#            anonymous: ~
+        main:
+            anonymous: ~
+
+            # http://symfony.com/doc/current/security/entity_provider.html#security-crete-user-entity
+            pattern:    ^/
+            http_basic: ~
+            provider: our_db_provider
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                login_path: login
+                check_path: login
+            logout: true
+
+    role_hierarchy:
+        ROLE_AUTHORIZER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_AUTHORIZER]
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(.+), roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_FULLY }
+

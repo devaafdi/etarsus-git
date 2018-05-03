@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- ... -->
+            <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        {% if app.user %}
+        <div id="navigation" class="col-md-3 col-lg-2">
+            <ul>
+                <li class="has-child item"><a href="#">Dashboard</a>
+                    <ul>
+                        <li class="item"><a href="{{ path('updateUser', {'idUser':0}) }}">Update account</a></li>
+                        <li class="item"><a href="{{ path('updateUser', {'idUser':0}) }}">Update account</a></li>
+                    </ul>
+                </li>
+                <li>User
+                    <ul>
+                        <li class="item"><a href="{{ path('listUser') }}">List User</a></li>
+                        <li class="item"><a href="{{ path('createUser') }}">Create User</a></li>
+                        <li class="item"><a href="{{ path('updateUser', {'idUser':0}) }}">Update User</a></li>
+                    </ul>
+                </li>
+                <li>Invoice
+                    <ul>
+                        <li class="item"><a href="">List Invoice</a></li>
+                        <li class="item"><a href="#">Create Invoice</a></li>
+                        <li class="item"><a href="#">Update Invoice</a></li>
+                        <li class="item"><a href="{{ path('listVendor') }}">List Vendor</a></li>
+                        <li class="item"><a href="{{ path('createVendor') }}">Create Vendor</a></li>
+                        <li class="item"><a href="{{ path('listBGCode') }}">List Budget Code</a></li>
+                        <li class="item"><a href="{{ path('createBGCode') }}">Create Budget Code</a></li>
+                        <li class="item"><a href="{{ path('listPname') }}">List Project Name</a></li>
+                        <li class="item"><a href="{{ path('createPname') }}">Create Project Name</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        <div class="body_wrapper col-md-9 col-lg-10">
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <!-- ... -->
+            <script src="{{ asset('build/app.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

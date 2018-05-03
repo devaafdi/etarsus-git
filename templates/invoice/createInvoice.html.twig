@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {{ controller_name }}!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    {% import _self as formMacros %}
+
+    {% macro printStepPrototype(defaultStep) %}
+        <li class="user_item list_label clearfix">
+            <div class="col-xs-1">{{ form_widget(defaultStep.budgetCode) }}</div>
+            <div class="col-xs-5">{{ form_widget(defaultStep.description) }}</div>
+            <div class="col-xs-1">{{ form_widget(defaultStep.projectCode) }}</div>
+            <div class="col-xs-2">{{ form_widget(defaultStep.currency) }}{{ form_widget(defaultStep.price) }}</div>
+            <div class="col-xs-1">{{ form_widget(defaultStep.quantity) }}</div>
+            <div class="col-xs-2">{{ form_widget(defaultStep.total) }}</div>
+        </li>
+    {% endmacro %}
+
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>src/Controller/UserController.php</code></li>
+        <li>Your template at <code>templates/user/index.html.twig</code></li>
+    </ul>
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.idVendor) }}
+        <li class="user_item list_label clearfix">
+            <div class="col-xs-1">Budget Code</div>
+            <div class="col-xs-5">Description</div>
+            <div class="col-xs-1">Project Name</div>
+            <div class="col-xs-2">Price</div>
+            <div class="col-xs-1">Qty</div>
+            <div class="col-xs-2">Total</div>
+        </li>
+        {#<ul class="invoiceItems" data-prototype="{{ form_widget(form.invoiceItems.vars.prototype)|e('html_attr') }}">#}
+            {#{{ form_widget(form.invoiceItems.vars.prototype.description)|e }}#}
+    <ul class="invoiceItems" data-prototype="{{ formMacros.printStepPrototype(form.invoiceItems.vars.prototype)|e('html_attr') }}">
+            {% for defaultStep  in form.invoiceItems %}
+                {{ formMacros.printStepPrototype(defaultStep) }}
+            {% endfor %}
+        </ul>
+    <button type="submit" class="btn btn-link waves-effect">SAVE</button>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/collectionForm.js') }}"></script>
+{% endblock %}

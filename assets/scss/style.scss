@@ -1,0 +1,39 @@
+// icon from bootstrap
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/"; // <-- this tilde symbol not working
+//$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap";
+
+// the ~ allows you to reference things in node_modules
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap"; // <-- this tilde symbol not working
+@import '../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap';
+
+
+
+body{
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+  font-weight: normal;
+  font-family: sans-serif;
+}
+
+h1{
+  color:#333333;
+}
+
+$primarycolor : #a70000;
+$lightcolor : #ffffff;
+
+#navigation{
+    background-color: $primarycolor;
+    color: $lightcolor;
+    font-size: 1.7rem;
+    padding: 0px;
+    ul{
+        padding: 0px;
+        margin: 0px;
+        list-style: none;
+    }
+    li{
+        border-bottom:1px solid $lightcolor;
+    }
+}
